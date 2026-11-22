@@ -205,7 +205,11 @@
   <script>
     // Register Service Worker
     if ('serviceWorker' in navigator) {
+<<<<<<< HEAD
       navigator.serviceWorker.register('/sw.js')
+=======
+      navigator.serviceWorker.register('./sw.js')
+>>>>>>> a06f6a7bc5a1632fee42f332d563f890b4a74226
         .then(reg => console.log('[PWA] SW registered:', reg.scope))
         .catch(err => console.log('[PWA] SW error:', err));
     }

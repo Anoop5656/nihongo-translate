@@ -45,7 +45,11 @@ self.addEventListener('fetch', event => {
       }).catch(() => {
         // Offline fallback
         if (event.request.destination === 'document') {
+<<<<<<< HEAD
           return caches.match('/index.html');
+=======
+          return caches.match('/index.html',self.registration.scope).href);
+>>>>>>> a06f6a7bc5a1632fee42f332d563f890b4a74226
         }
       });
     })

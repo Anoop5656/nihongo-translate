@@ -489,6 +489,7 @@ body {
 .example-card:hover::before { transform: scaleX(1); }
 .example-card:hover { transform: translateY(-4px); border-color: rgba(188,0,45,0.4); box-shadow: 0 10px 30px rgba(188,0,45,0.2); }
 
+<<<<<<< HEAD
 .ex-cat-badge {
   font-size: 0.65rem;
   font-weight: 700;
@@ -503,6 +504,8 @@ body {
   border: 1px solid rgba(188,0,45,0.2);
 }
 
+=======
+>>>>>>> a06f6a7bc5a1632fee42f332d563f890b4a74226
 .ex-en { font-size: 0.85rem; color: var(--clr-text-muted); margin-bottom: 8px; }
 .ex-ja { font-family: var(--font-jp); font-size: 1.3rem; color: var(--clr-kana); font-weight: 500; margin-bottom: 4px; }
 .ex-romaji { font-size: 0.8rem; color: var(--clr-romaji); margin-bottom: 6px; }

@@ -334,6 +334,7 @@ const VOCAB = [
 ];
 
 // ============================================================
+<<<<<<< HEAD
 // 2. SENTENCE / PHRASE DATABASE  (120+ daily-life sentences)
 // ============================================================
 const PHRASES = [
@@ -503,6 +504,35 @@ const PHRASES = [
   { en: 'Is there a hospital near here?', ja: 'このちかくに びょういんが ありますか。', romaji: 'Kono chikaku ni byouin ga arimasu ka.', note: 'に (ni) marks location; あります = there is (inanimate)', category: 'Basic Sentences' },
   { en: 'I want to go to Japan.', ja: 'にほんへ いきたいです。', romaji: 'Nihon e ikitai desu.', note: 'たいです = want to do (desire form)', category: 'Basic Sentences' },
   { en: 'Are you a student?', ja: 'あなたは がくせい ですか。', romaji: 'Anata wa gakusei desu ka.', note: 'Question formed by adding か (ka) at the end', category: 'Basic Sentences' },
+=======
+// 2. SENTENCE / PHRASE DATABASE
+// ============================================================
+const PHRASES = [
+  { en: 'I am a student.', ja: 'わたしは がくせい です。', romaji: 'Watashi wa gakusei desu.', note: 'Basic identity sentence using は (wa) + です (desu)' },
+  { en: 'I am not a teacher.', ja: 'わたしは せんせい では ありません。', romaji: 'Watashi wa sensei de wa arimasen.', note: 'Negative form of です → では ありません' },
+  { en: 'Are you a student?', ja: 'あなたは がくせい ですか。', romaji: 'Anata wa gakusei desu ka.', note: 'Question formed by adding か (ka) at the end' },
+  { en: 'This is a book.', ja: 'これは ほん です。', romaji: 'Kore wa hon desu.', note: 'これ (kore) = this thing near the speaker' },
+  { en: 'That is a pen.', ja: 'それは ペン です。', romaji: 'Sore wa pen desu.', note: 'それ (sore) = that thing near the listener' },
+  { en: 'That over there is a bag.', ja: 'あれは かばん です。', romaji: 'Are wa kaban desu.', note: 'あれ (are) = that thing away from both' },
+  { en: 'Where is the toilet?', ja: 'トイレは どこ ですか。', romaji: 'Toire wa doko desu ka.', note: 'どこ (doko) = where' },
+  { en: 'Please give me water.', ja: 'みずを ください。', romaji: 'Mizu wo kudasai.', note: 'を (wo) marks the direct object; ください = please give' },
+  { en: 'I go to school.', ja: 'わたしは がっこうへ いきます。', romaji: 'Watashi wa gakkou e ikimasu.', note: 'へ (e) marks direction of movement' },
+  { en: 'I ate sushi.', ja: 'わたしは すしを たべました。', romaji: 'Watashi wa sushi wo tabemashita.', note: 'Past tense: たべます → たべました' },
+  { en: 'I will drink coffee.', ja: 'わたしは コーヒーを のみます。', romaji: 'Watashi wa koohii wo nomimasu.', note: 'Present/future tense masu-form' },
+  { en: 'Do you like sushi?', ja: 'すしが すきですか。', romaji: 'Sushi ga suki desu ka.', note: 'が (ga) marks the subject of a state/feeling verb' },
+  { en: 'I like music.', ja: 'おんがくが すきです。', romaji: 'Ongaku ga suki desu.', note: 'すきです (suki desu) = like' },
+  { en: 'How much is this?', ja: 'これは いくら ですか。', romaji: 'Kore wa ikura desu ka.', note: 'いくら (ikura) = how much (price)' },
+  { en: 'Please wait a moment.', ja: 'ちょっと まってください。', romaji: 'Chotto matte kudasai.', note: 'てください = please do (te-form request)' },
+  { en: 'May I take a photo?', ja: 'しゃしんを とっても いいですか。', romaji: 'Shashin wo totte mo ii desu ka.', note: 'てもいいですか = may I / is it okay to?' },
+  { en: 'I cannot speak Japanese well.', ja: 'にほんごが あまり はなせません。', romaji: 'Nihongo ga amari hanasemasen.', note: 'Potential negative form; あまり = not very much' },
+  { en: 'Is there a hospital near here?', ja: 'このちかくに びょういんが ありますか。', romaji: 'Kono chikaku ni byouin ga arimasu ka.', note: 'に (ni) marks location; あります = there is (inanimate)' },
+  { en: 'I have a cold.', ja: 'かぜを ひいています。', romaji: 'Kaze wo hiite imasu.', note: 'ています = current state/ongoing action' },
+  { en: 'Let\'s eat together.', ja: 'いっしょに たべましょう。', romaji: 'Issho ni tabemashou.', note: 'ましょう = let\'s do (invitation)' },
+  { en: 'I want to go to Japan.', ja: 'にほんへ いきたいです。', romaji: 'Nihon e ikitai desu.', note: 'たいです = want to do (desire form)' },
+  { en: 'Please turn left.', ja: 'ひだりへ まがってください。', romaji: 'Hidari e magatte kudasai.', note: 'Direction instruction using てください' },
+  { en: 'I am fine.', ja: 'げんきです。', romaji: 'Genki desu.', note: 'Common response to "how are you?"' },
+  { en: 'Nice to meet you.', ja: 'はじめまして。どうぞ よろしく おねがいします。', romaji: 'Hajimemashite. Douzo yoroshiku onegai shimasu.', note: 'Standard first-time greeting formula' },
+>>>>>>> a06f6a7bc5a1632fee42f332d563f890b4a74226
 ];
 
 // ============================================================
@@ -841,7 +871,10 @@ function renderOutput(result, originalInput) {
         <div class="trans-ja">${p.ja}</div>
         <div class="trans-romaji">📢 ${p.romaji}</div>
         ${p.note ? `<div class="trans-meaning">💡 ${p.note}</div>` : ''}
+<<<<<<< HEAD
         ${p.category ? `<div style="margin-top:8px"><span class="ex-cat-badge">📂 ${p.category}</span></div>` : ''}
+=======
+>>>>>>> a06f6a7bc5a1632fee42f332d563f890b4a74226
       </div>`;
     if (p.note) {
       noteEl.innerHTML = `<strong>Grammar tip:</strong> ${p.note}`;
@@ -925,6 +958,7 @@ function renderOutput(result, originalInput) {
 // 6. POPULATE UI
 // ============================================================
 
+<<<<<<< HEAD
 function populateExamples(filterCat = 'All') {
   const grid = document.getElementById('examplesGrid');
   const cats = ['All', ...new Set(PHRASES.map(p => p.category).filter(Boolean))];
@@ -949,6 +983,13 @@ function populateExamples(filterCat = 'All') {
   grid.innerHTML = subset.map(p => `
     <div class="example-card" data-phrase="${p.en.replace(/"/g, '&quot;')}">
       ${p.category ? `<div class="ex-cat-badge">${p.category}</div>` : ''}
+=======
+function populateExamples() {
+  const grid = document.getElementById('examplesGrid');
+  const subset = PHRASES.slice(0, 12);
+  grid.innerHTML = subset.map(p => `
+    <div class="example-card" data-phrase="${p.en}">
+>>>>>>> a06f6a7bc5a1632fee42f332d563f890b4a74226
       <div class="ex-en">${p.en}</div>
       <div class="ex-ja">${p.ja}</div>
       <div class="ex-romaji">📢 ${p.romaji}</div>
