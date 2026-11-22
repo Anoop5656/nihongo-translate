@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>えいごからにほんご — English to Japanese Translator</title>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="にほんご" />
+  <meta name="theme-color" content="#bc002d" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-animated">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="falling-kana" id="fallingKana"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-ja">に</span>
+        <span class="logo-text">NihongoTranslate</span>
+        <span class="logo-badge">みんなのにほんご</span>
+      </div>
+      <nav class="header-nav">
+        <button class="nav-btn active" data-tab="translate">🔤 Translate</button>
+        <button class="nav-btn" data-tab="vocabulary">📚 Vocab</button>
+        <button class="nav-btn" data-tab="grammar">📖 Grammar</button>
+        <button class="nav-btn" data-tab="quiz">🎯 Quiz</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- ===== TRANSLATE TAB ===== -->
+    <section id="tab-translate" class="tab-section active">
+      <div class="translator-card">
+        <div class="translator-header">
+          <h1 class="translator-title">English → Japanese Translator</h1>
+          <p class="translator-subtitle">Powered by Minna no Nihongo curriculum • Kana only • With romaji pronunciation</p>
+        </div>
+
+        <div class="translation-panels">
+          <!-- Input Panel -->
+          <div class="panel input-panel">
+            <div class="panel-label">
+              <span class="flag">🇬🇧</span>
+              <span>English</span>
+              <button class="clear-btn" id="clearBtn" title="Clear">✕</button>
+            </div>
+            <textarea
+              id="inputText"
+              class="text-area"
+              placeholder="Type English words or sentences here…&#10;&#10;Try: I am a student / good morning / thank you"
+              rows="6"
+              maxlength="500"
+            ></textarea>
+            <div class="panel-footer">
+              <span class="char-count" id="charCount">0 / 500</span>
+              <div class="quick-words">
+                <span class="qw-label">Try:</span>
+                <button class="qw-btn" data-word="hello">hello</button>
+                <button class="qw-btn" data-word="thank you">thank you</button>
+                <button class="qw-btn" data-word="good morning">good morning</button>
+                <button class="qw-btn" data-word="I am a student">I am a student</button>
+                <button class="qw-btn" data-word="please">please</button>
+                <button class="qw-btn" data-word="yes">yes</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Swap + Translate Button -->
+          <div class="translate-action">
+            <button class="translate-btn" id="translateBtn">
+              <span class="btn-icon">⇄</span>
+              <span class="btn-text">Translate</span>
+            </button>
+          </div>
+
+          <!-- Output Panel -->
+          <div class="panel output-panel">
+            <div class="panel-label">
+              <span class="flag">🇯🇵</span>
+              <span>Japanese</span>
+              <button class="copy-btn" id="copyBtn" title="Copy">📋</button>
+              <button class="speak-btn" id="speakBtn" title="Listen">🔊</button>
+            </div>
+            <div class="output-area" id="outputArea">
+              <div class="output-placeholder">
+                <div class="placeholder-kana">に ほ ん ご</div>
+                <div class="placeholder-text">Your Japanese translation will appear here</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Translation Result Details -->
+        <div class="result-details" id="resultDetails" style="display:none">
+          <div class="result-tokens" id="resultTokens"></div>
+          <div class="grammar-note" id="grammarNote"></div>
+        </div>
+      </div>
+
+      <!-- Sentence Examples -->
+      <div class="examples-section">
+        <h2 class="section-title">📝 Common Expressions</h2>
+        <div class="examples-grid" id="examplesGrid"></div>
+      </div>
+    </section>
+
+    <!-- ===== VOCABULARY TAB ===== -->
+    <section id="tab-vocabulary" class="tab-section">
+      <div class="vocab-header">
+        <h2 class="section-title">📚 Vocabulary — みんなのにほんご</h2>
+        <div class="vocab-controls">
+          <input type="text" id="vocabSearch" class="vocab-search" placeholder="🔍 Search English or Japanese…" />
+          <div class="category-filters" id="categoryFilters"></div>
+        </div>
+      </div>
+      <div class="vocab-grid" id="vocabGrid"></div>
+    </section>
+
+    <!-- ===== GRAMMAR TAB ===== -->
+    <section id="tab-grammar" class="tab-section">
+      <h2 class="section-title">📖 Grammar Patterns</h2>
+      <div class="grammar-list" id="grammarList"></div>
+    </section>
+
+    <!-- ===== QUIZ TAB ===== -->
+    <section id="tab-quiz" class="tab-section">
+      <div class="quiz-container">
+        <h2 class="section-title">🎯 Vocabulary Quiz</h2>
+        <div class="quiz-card" id="quizCard">
+          <div class="quiz-start" id="quizStart">
+            <div class="quiz-icon">🎌</div>
+            <h3>Test Your Japanese!</h3>
+            <p>Choose how many questions you want</p>
+            <div class="quiz-options">
+              <button class="quiz-start-btn" data-count="10">10 Questions</button>
+              <button class="quiz-start-btn" data-count="20">20 Questions</button>
+              <button class="quiz-start-btn" data-count="30">30 Questions</button>
+            </div>
+          </div>
+          <div class="quiz-question" id="quizQuestion" style="display:none">
+            <div class="quiz-progress">
+              <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizFill"></div></div>
+              <span id="quizProgress">1 / 10</span>
+            </div>
+            <div class="quiz-score-display">Score: <span id="quizScore">0</span></div>
+            <div class="quiz-prompt" id="quizPrompt"></div>
+            <div class="quiz-choices" id="quizChoices"></div>
+            <div class="quiz-feedback" id="quizFeedback"></div>
+          </div>
+          <div class="quiz-result" id="quizResult" style="display:none">
+            <div class="result-emoji" id="resultEmoji"></div>
+            <h3 id="resultTitle"></h3>
+            <div class="result-score-big" id="resultScoreBig"></div>
+            <p id="resultMsg"></p>
+            <button class="quiz-restart-btn" id="quizRestartBtn">Play Again 🔄</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay" style="display:none">
+    <div class="loading-spinner">
+      <div class="spinner-kana" id="spinnerKana">に</div>
+      <div class="loading-text">Translating…</div>
+    </div>
+  </div>
+
+  <script src="translator.js"></script>
+
+  <!-- PWA Install Banner -->
+  <div class="pwa-banner" id="pwaBanner" style="display:none">
+    <span class="pwa-icon">📲</span>
+    <div class="pwa-text">
+      <strong>Install NihongoTranslate</strong>
+      <span>Add to home screen for offline use</span>
+    </div>
+    <button class="pwa-install-btn" id="pwaInstallBtn">Install</button>
+    <button class="pwa-dismiss-btn" id="pwaDismissBtn">✕</button>
+  </div>
+
+  <script>
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('[PWA] SW registered:', reg.scope))
+        .catch(err => console.log('[PWA] SW error:', err));
+    }
+
+    // PWA Install Prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', e => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById('pwaBanner').style.display = 'flex';
+    });
+    document.getElementById('pwaInstallBtn').addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      document.getElementById('pwaBanner').style.display = 'none';
+      if (outcome === 'accepted') showToast('✅ App installed! Find it on your home screen.');
+    });
+    document.getElementById('pwaDismissBtn').addEventListener('click', () => {
+      document.getElementById('pwaBanner').style.display = 'none';
+    });
+  </script>
+</body>
+</html>
