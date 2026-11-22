@@ -971,30 +971,136 @@ function getBleuInterpretation(score) {
   if (score > 0) return 'Low character n-gram overlap with the reference.';
   return 'No character n-gram overlap was found.';
 }
+
+function normalizeEnglishForBleu(text) {
+  return String(text || '')
+    .normalize('NFKC')
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function findAutomaticBleuReference(input) {
+  const target = normalizeEnglishForBleu(input);
+
+  if (!target) return null;
+
+  // Search exact English phrase matches
+  const phrase = PHRASES.find(item =>
+    normalizeEnglishForBleu(item.en) === target
+  );
+
+  if (phrase) {
+    return {
+      english: phrase.en,
+      japanese: phrase.ja,
+      source: 'Built-in phrase dataset'
+    };
+  }
+
+  // Search vocabulary matches, including slash-separated meanings
+  for (const item of VOCAB) {
+    const meanings = String(item.en)
+      .split('/')
+      .map(word => normalizeEnglishForBleu(word));
+
+    if (meanings.includes(target)) {
+      return {
+        english: item.en,
+        japanese: item.ja,
+        source: 'Built-in vocabulary dataset'
+      };
+    }
+  }
+
+  return null;
+}
+
 function evaluateCurrentTranslation() {
   const input = document.getElementById('inputText').value.trim();
-  const reference = document.getElementById('bleuReference').value.trim();
   const output = document.getElementById('bleuIndividualResult');
-  if (!input) { output.textContent = 'Enter and translate an English sentence first.'; return; }
-  if (!reference) { output.textContent = 'Enter a human-written Japanese reference translation first.'; return; }
+
+  if (!input) {
+    output.textContent = 'Enter an English sentence first.';
+    return;
+  }
+
   const hypothesis = getGeneratedJapanese(translateText(input));
-  if (!hypothesis) { output.textContent = 'No Japanese translation is available to evaluate. Try a supported word or phrase.'; return; }
-  const score = calculateJapaneseBleu(reference, hypothesis);
-  if (score === null) { output.textContent = 'The reference or generated translation is empty after normalization.'; return; }
+
+  if (!hypothesis) {
+    output.textContent =
+      'No Japanese translation is available to evaluate. Try a supported word or phrase.';
+    return;
+  }
+
+  const reference = findAutomaticBleuReference(input);
+
+  if (!reference) {
+    output.replaceChildren();
+
+    const message = document.createElement('div');
+    message.textContent =
+      'BLEU score unavailable: no matching reference was found in the built-in dataset.';
+
+    const generated = document.createElement('div');
+    generated.className = 'bleu-hint';
+    generated.textContent = 'Generated Japanese: ' + hypothesis;
+
+    const suggestion = document.createElement('div');
+    suggestion.className = 'bleu-hint';
+    suggestion.textContent =
+      'Try an exact phrase or word available in the built-in dataset.';
+
+    output.append(message, generated, suggestion);
+    return;
+  }
+
+  const score = calculateJapaneseBleu(
+    reference.japanese,
+    hypothesis
+  );
+
+  if (score === null) {
+    output.textContent = 'Unable to calculate BLEU score for this translation.';
+    return;
+  }
 
   output.replaceChildren();
+
   const heading = document.createElement('div');
-  heading.textContent = 'Individual BLEU-4';
+  heading.textContent = 'Automatic Individual BLEU-4';
+
   const scoreElement = document.createElement('div');
   scoreElement.className = 'bleu-score';
   scoreElement.textContent = score.toFixed(2) + ' / 100';
+
   const note = document.createElement('div');
   note.textContent = getBleuInterpretation(score);
+
   const generated = document.createElement('div');
   generated.className = 'bleu-hint';
   generated.textContent = 'Generated Japanese: ' + hypothesis;
-  output.append(heading, scoreElement, note, generated);
+
+  const referenceText = document.createElement('div');
+  referenceText.className = 'bleu-hint';
+  referenceText.textContent =
+    'Matched reference: ' + reference.japanese;
+
+  const source = document.createElement('div');
+  source.className = 'bleu-hint';
+  source.textContent = 'Reference source: ' + reference.source;
+
+  output.append(
+    heading,
+    scoreElement,
+    note,
+    generated,
+    referenceText,
+    source
+  );
 }
+
 
 // PHRASES is also the translator's lookup table. Corpus BLEU here is an
 // internal consistency check, not an independent model-quality evaluation.
@@ -1039,10 +1145,12 @@ function updateCorpusBleuDisplay() {
       ' This is not an independent model-quality score.';
 }
 function resetBleuEvaluation() {
-  const reference = document.getElementById('bleuReference');
   const individual = document.getElementById('bleuIndividualResult');
-  if (reference) reference.value = '';
-  if (individual) individual.textContent = 'Individual BLEU will appear here after evaluation.';
+
+  if (individual) {
+    individual.textContent =
+      'BLEU evaluation will appear here after translation.';
+  }
 }
 
 // ============================================================
@@ -1339,41 +1447,16 @@ function updateCharCount() {
   const val = document.getElementById('inputText').value;
   document.getElementById('charCount').textContent = `${val.length} / 500`;
 }
-
-function triggerTranslation() {
-  // Reset output opacity
-  document.getElementById('outputArea').style.opacity = '1';
-  const input = document.getElementById('inputText').value.trim();
-  if (!input) {
-    document.getElementById('outputArea').innerHTML = `
-      <div class="output-placeholder">
-        <div class="placeholder-kana">に ほ ん ご</div>
-        <div class="placeholder-text">Your Japanese translation will appear here</div>
-      </div>`;
-    document.getElementById('resultDetails').style.display = 'none';
-    document.getElementById('bleuPanel').style.display = 'none';
-    resetBleuEvaluation();
-    return;
-  }
-
-  // Show loading briefly for UX
-  document.getElementById('loadingOverlay').style.display = 'flex';
-  const kanaList = 'にほんごをまなぼう';
-  let ki = 0;
-  const kInterval = setInterval(() => {
-    document.getElementById('spinnerKana').textContent = kanaList[ki++ % kanaList.length];
-  }, 200);
-
-  setTimeout(() => {
-    clearInterval(kInterval);
-    document.getElementById('loadingOverlay').style.display = 'none';
-    const result = translateText(input);
-    renderOutput(result, input);
-    document.getElementById('bleuPanel').style.display =
-      getGeneratedJapanese(result) ? 'block' : 'none';
-    resetBleuEvaluation();
-  }, 400);
-}
+function triggerTranslation(){
+   if (document.getElementById('bleuToggle').checked &&
+       getGeneratedJapanese(result)) {
+     document.getElementById('bleuPanelDetails').style.display = 'block';
+     evaluateCurrentTranslation();
+   } else {
+     document.getElementById('bleuPanelDetails').style.display = 'none';
+     resetBleuEvaluation();
+   }
+} 
 
 // ============================================================
 // 13. INIT
@@ -1409,9 +1492,19 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('translateBtn').addEventListener('click', triggerTranslation);
 
   // BLEU evaluation controls
-  document.getElementById('evaluateBleuBtn').addEventListener('click', evaluateCurrentTranslation);
-  document.getElementById('runCorpusBleuBtn').addEventListener('click', updateCorpusBleuDisplay);
-
+  document.getElementById('bleuToggle').addEventListener('change', function () {
+    const panel = document.getElementById('bleuPanelDetails');
+   
+    if (this.checked) {
+       panel.style.display = 'block';
+       evaluateCurrentTranslation();
+    } else {
+      panel.style.display = 'none';
+    }
+  });
+   
+   document.getElementById('runCorpusBleuBtn')
+     .addEventListener('click', updateCorpusBleuDisplay);
   // Enter key support
   document.getElementById('inputText').addEventListener('keydown', e => {
     if (e.key === 'Enter' && e.ctrlKey) { e.preventDefault(); triggerTranslation(); }
