@@ -125,18 +125,16 @@
 
         <section class="bleu-panel" id="bleuPanelDetails" style="display:none" aria-labelledby="bleuTitle">
           <div class="bleu-heading">
-            <div><h2 id="bleuTitle">📊 Translation Evaluation (BLEU)</h2>
-            <p>Compare the generated Japanese with a human-written reference.</p></div>
+            <div>
+              <h2 id="bleuTitle">📊 Automatic Translation Evaluation (BLEU)</h2>
+              <p>Automatically evaluates translations using matching built-in references.</p>
+            </div>
             <span class="bleu-chip">Character n-gram BLEU-4</span>
           </div>
-          <label class="bleu-label" for="bleuReference">Reference Japanese translation</label>
-          <textarea id="bleuReference" class="bleu-reference" rows="2" maxlength="500"
-            placeholder="Enter a correct Japanese reference translation…"></textarea>
-          <div class="bleu-actions">
-            <button type="button" class="bleu-button" id="evaluateBleuBtn">Evaluate translation</button>
-            <span class="bleu-hint">Individual BLEU requires a reference translation.</span>
+          
+          <div class="bleu-individual-result" id="bleuIndividualResult" aria-live="polite">
+            BLEU evaluation will appear here after translation.
           </div>
-          <div class="bleu-individual-result" id="bleuIndividualResult" aria-live="polite">Individual BLEU will appear here after evaluation.</div>
           <div class="bleu-corpus-card">
             <div class="bleu-corpus-title">Overall corpus evaluation</div>
             <p>Uses the built-in phrase list. This is an internal consistency check, not an independent test set.</p>
