@@ -334,8 +334,7 @@ const VOCAB = [
 ];
 
 // ============================================================
-<<<<<<< HEAD
-// 2. SENTENCE / PHRASE DATABASE  (120+ daily-life sentences)
+// 2. SENTENCE / PHRASE DATABASE  (140+ daily-life sentences)
 // ============================================================
 const PHRASES = [
 
@@ -504,35 +503,6 @@ const PHRASES = [
   { en: 'Is there a hospital near here?', ja: 'このちかくに びょういんが ありますか。', romaji: 'Kono chikaku ni byouin ga arimasu ka.', note: 'に (ni) marks location; あります = there is (inanimate)', category: 'Basic Sentences' },
   { en: 'I want to go to Japan.', ja: 'にほんへ いきたいです。', romaji: 'Nihon e ikitai desu.', note: 'たいです = want to do (desire form)', category: 'Basic Sentences' },
   { en: 'Are you a student?', ja: 'あなたは がくせい ですか。', romaji: 'Anata wa gakusei desu ka.', note: 'Question formed by adding か (ka) at the end', category: 'Basic Sentences' },
-=======
-// 2. SENTENCE / PHRASE DATABASE
-// ============================================================
-const PHRASES = [
-  { en: 'I am a student.', ja: 'わたしは がくせい です。', romaji: 'Watashi wa gakusei desu.', note: 'Basic identity sentence using は (wa) + です (desu)' },
-  { en: 'I am not a teacher.', ja: 'わたしは せんせい では ありません。', romaji: 'Watashi wa sensei de wa arimasen.', note: 'Negative form of です → では ありません' },
-  { en: 'Are you a student?', ja: 'あなたは がくせい ですか。', romaji: 'Anata wa gakusei desu ka.', note: 'Question formed by adding か (ka) at the end' },
-  { en: 'This is a book.', ja: 'これは ほん です。', romaji: 'Kore wa hon desu.', note: 'これ (kore) = this thing near the speaker' },
-  { en: 'That is a pen.', ja: 'それは ペン です。', romaji: 'Sore wa pen desu.', note: 'それ (sore) = that thing near the listener' },
-  { en: 'That over there is a bag.', ja: 'あれは かばん です。', romaji: 'Are wa kaban desu.', note: 'あれ (are) = that thing away from both' },
-  { en: 'Where is the toilet?', ja: 'トイレは どこ ですか。', romaji: 'Toire wa doko desu ka.', note: 'どこ (doko) = where' },
-  { en: 'Please give me water.', ja: 'みずを ください。', romaji: 'Mizu wo kudasai.', note: 'を (wo) marks the direct object; ください = please give' },
-  { en: 'I go to school.', ja: 'わたしは がっこうへ いきます。', romaji: 'Watashi wa gakkou e ikimasu.', note: 'へ (e) marks direction of movement' },
-  { en: 'I ate sushi.', ja: 'わたしは すしを たべました。', romaji: 'Watashi wa sushi wo tabemashita.', note: 'Past tense: たべます → たべました' },
-  { en: 'I will drink coffee.', ja: 'わたしは コーヒーを のみます。', romaji: 'Watashi wa koohii wo nomimasu.', note: 'Present/future tense masu-form' },
-  { en: 'Do you like sushi?', ja: 'すしが すきですか。', romaji: 'Sushi ga suki desu ka.', note: 'が (ga) marks the subject of a state/feeling verb' },
-  { en: 'I like music.', ja: 'おんがくが すきです。', romaji: 'Ongaku ga suki desu.', note: 'すきです (suki desu) = like' },
-  { en: 'How much is this?', ja: 'これは いくら ですか。', romaji: 'Kore wa ikura desu ka.', note: 'いくら (ikura) = how much (price)' },
-  { en: 'Please wait a moment.', ja: 'ちょっと まってください。', romaji: 'Chotto matte kudasai.', note: 'てください = please do (te-form request)' },
-  { en: 'May I take a photo?', ja: 'しゃしんを とっても いいですか。', romaji: 'Shashin wo totte mo ii desu ka.', note: 'てもいいですか = may I / is it okay to?' },
-  { en: 'I cannot speak Japanese well.', ja: 'にほんごが あまり はなせません。', romaji: 'Nihongo ga amari hanasemasen.', note: 'Potential negative form; あまり = not very much' },
-  { en: 'Is there a hospital near here?', ja: 'このちかくに びょういんが ありますか。', romaji: 'Kono chikaku ni byouin ga arimasu ka.', note: 'に (ni) marks location; あります = there is (inanimate)' },
-  { en: 'I have a cold.', ja: 'かぜを ひいています。', romaji: 'Kaze wo hiite imasu.', note: 'ています = current state/ongoing action' },
-  { en: 'Let\'s eat together.', ja: 'いっしょに たべましょう。', romaji: 'Issho ni tabemashou.', note: 'ましょう = let\'s do (invitation)' },
-  { en: 'I want to go to Japan.', ja: 'にほんへ いきたいです。', romaji: 'Nihon e ikitai desu.', note: 'たいです = want to do (desire form)' },
-  { en: 'Please turn left.', ja: 'ひだりへ まがってください。', romaji: 'Hidari e magatte kudasai.', note: 'Direction instruction using てください' },
-  { en: 'I am fine.', ja: 'げんきです。', romaji: 'Genki desu.', note: 'Common response to "how are you?"' },
-  { en: 'Nice to meet you.', ja: 'はじめまして。どうぞ よろしく おねがいします。', romaji: 'Hajimemashite. Douzo yoroshiku onegai shimasu.', note: 'Standard first-time greeting formula' },
->>>>>>> a06f6a7bc5a1632fee42f332d563f890b4a74226
 ];
 
 // ============================================================
@@ -871,10 +841,7 @@ function renderOutput(result, originalInput) {
         <div class="trans-ja">${p.ja}</div>
         <div class="trans-romaji">📢 ${p.romaji}</div>
         ${p.note ? `<div class="trans-meaning">💡 ${p.note}</div>` : ''}
-<<<<<<< HEAD
         ${p.category ? `<div style="margin-top:8px"><span class="ex-cat-badge">📂 ${p.category}</span></div>` : ''}
-=======
->>>>>>> a06f6a7bc5a1632fee42f332d563f890b4a74226
       </div>`;
     if (p.note) {
       noteEl.innerHTML = `<strong>Grammar tip:</strong> ${p.note}`;
@@ -958,7 +925,6 @@ function renderOutput(result, originalInput) {
 // 6. POPULATE UI
 // ============================================================
 
-<<<<<<< HEAD
 function populateExamples(filterCat = 'All') {
   const grid = document.getElementById('examplesGrid');
   const cats = ['All', ...new Set(PHRASES.map(p => p.category).filter(Boolean))];
@@ -983,13 +949,6 @@ function populateExamples(filterCat = 'All') {
   grid.innerHTML = subset.map(p => `
     <div class="example-card" data-phrase="${p.en.replace(/"/g, '&quot;')}">
       ${p.category ? `<div class="ex-cat-badge">${p.category}</div>` : ''}
-=======
-function populateExamples() {
-  const grid = document.getElementById('examplesGrid');
-  const subset = PHRASES.slice(0, 12);
-  grid.innerHTML = subset.map(p => `
-    <div class="example-card" data-phrase="${p.en}">
->>>>>>> a06f6a7bc5a1632fee42f332d563f890b4a74226
       <div class="ex-en">${p.en}</div>
       <div class="ex-ja">${p.ja}</div>
       <div class="ex-romaji">📢 ${p.romaji}</div>
@@ -1258,6 +1217,8 @@ function updateCharCount() {
 }
 
 function triggerTranslation() {
+  // Reset output opacity
+  document.getElementById('outputArea').style.opacity = '1';
   const input = document.getElementById('inputText').value.trim();
   if (!input) {
     document.getElementById('outputArea').innerHTML = `
@@ -1282,12 +1243,136 @@ function triggerTranslation() {
     document.getElementById('loadingOverlay').style.display = 'none';
     const result = translateText(input);
     renderOutput(result, input);
+    // Extract translated Japanese text and compute BLEU if panel visible
+    setTimeout(() => {
+      const jaEl = document.getElementById('outputArea').querySelector('.trans-ja');
+      if (jaEl) renderBLEUScore(input, jaEl.textContent);
+    }, 50);
   }, 400);
 }
 
 // ============================================================
 // 13. INIT
 // ============================================================
+
+// ============================================================
+// BLEU SCORE ENGINE
+// ============================================================
+// ============================================================
+// BLEU SCORE ENGINE — NihongoTranslate
+// Implements sentence-level BLEU with 1-4 gram precision
+// ============================================================
+
+function tokenizeJa(str) {
+  return str.replace(/[。、！？\s　]/g, '').split('');
+}
+
+function getNgrams(tokens, n) {
+  const ngrams = {};
+  for (let i = 0; i <= tokens.length - n; i++) {
+    const gram = tokens.slice(i, i + n).join('|');
+    ngrams[gram] = (ngrams[gram] || 0) + 1;
+  }
+  return ngrams;
+}
+
+function modifiedPrecision(hypTokens, refTokens, n) {
+  if (hypTokens.length < n) return 0;
+  const hypGrams = getNgrams(hypTokens, n);
+  const refGrams = getNgrams(refTokens, n);
+  let matched = 0, total = 0;
+  for (const [gram, count] of Object.entries(hypGrams)) {
+    total += count;
+    matched += Math.min(count, refGrams[gram] || 0);
+  }
+  return total === 0 ? 0 : matched / total;
+}
+
+function computeBLEU(hypStr, refStr) {
+  const hyp = tokenizeJa(hypStr);
+  const ref = tokenizeJa(refStr);
+  if (!hyp.length || !ref.length) return { score: 0, precision1: 0, precision2: 0, bp: 0, hypLen: 0, refLen: 0 };
+  const bp = hyp.length >= ref.length ? 1 : Math.exp(1 - ref.length / hyp.length);
+  const p1 = modifiedPrecision(hyp, ref, 1);
+  const p2 = modifiedPrecision(hyp, ref, 2);
+  const p3 = modifiedPrecision(hyp, ref, 3);
+  const p4 = modifiedPrecision(hyp, ref, 4);
+  const precisions = [p1, p2, p3, p4].filter(p => p > 0);
+  let geoMean = 0;
+  if (precisions.length > 0) {
+    geoMean = Math.exp(precisions.reduce((s, p) => s + Math.log(p), 0) / precisions.length);
+  }
+  return {
+    score:      Math.round(bp * geoMean * 100),
+    precision1: Math.round(p1 * 100),
+    precision2: Math.round(p2 * 100),
+    bp:         Math.round(bp * 100),
+    hypLen:     hyp.length,
+    refLen:     ref.length,
+  };
+}
+
+function findBestReference(inputEn) {
+  const norm = inputEn.toLowerCase().trim().replace(/[.,!?]/g, '');
+  for (const p of PHRASES) {
+    if (p.en.toLowerCase().replace(/[.,!?]/g, '') === norm) return p.ja;
+  }
+  for (const v of VOCAB) {
+    const keys = v.en.toLowerCase().split(' / ');
+    if (keys.some(k => k.trim() === norm)) return v.ja;
+  }
+  return null;
+}
+
+function renderBLEUScore(inputEn, translatedJa) {
+  const panel = document.getElementById('bleuPanel');
+  const toggle = document.getElementById('bleuToggle');
+  if (!panel || !toggle || !toggle.checked) return;
+
+  const ref = findBestReference(inputEn);
+  if (!ref) {
+    panel.innerHTML =
+      '<div class="bleu-na">ℹ️ No reference found for this input — BLEU requires a known translation in the database.</div>';
+    return;
+  }
+  if (!translatedJa) {
+    panel.innerHTML = '<div class="bleu-na">Translate first to see BLEU score.</div>';
+    return;
+  }
+
+  const r = computeBLEU(translatedJa, ref);
+  let quality = '', qualClass = '';
+  if      (r.score >= 80) { quality = '🟢 Excellent'; qualClass = 'bleu-excellent'; }
+  else if (r.score >= 60) { quality = '🟡 Good';       qualClass = 'bleu-good'; }
+  else if (r.score >= 40) { quality = '🟠 Fair';       qualClass = 'bleu-fair'; }
+  else if (r.score >= 20) { quality = '🔴 Poor';       qualClass = 'bleu-poor'; }
+  else                    { quality = '⚫ Very Low';   qualClass = 'bleu-verylow'; }
+
+  panel.innerHTML = [
+    '<div class="bleu-header">',
+    '  <span class="bleu-title">📊 BLEU Score</span>',
+    '  <span class="bleu-badge ' + qualClass + '">' + quality + '</span>',
+    '</div>',
+    '<div class="bleu-score-big">' + r.score + '<span class="bleu-score-unit">/100</span></div>',
+    '<div class="bleu-bar-wrap">',
+    '  <div class="bleu-bar-track">',
+    '    <div class="bleu-bar-fill ' + qualClass + '" style="width:' + r.score + '%"></div>',
+    '  </div>',
+    '</div>',
+    '<div class="bleu-breakdown">',
+    '  <div class="bleu-metric"><span class="bleu-metric-label">Unigram precision</span><span class="bleu-metric-val">' + r.precision1 + '%</span></div>',
+    '  <div class="bleu-metric"><span class="bleu-metric-label">Bigram precision</span><span class="bleu-metric-val">' + r.precision2 + '%</span></div>',
+    '  <div class="bleu-metric"><span class="bleu-metric-label">Brevity penalty</span><span class="bleu-metric-val">' + r.bp + '%</span></div>',
+    '  <div class="bleu-metric"><span class="bleu-metric-label">Output length</span><span class="bleu-metric-val">' + r.hypLen + ' chars</span></div>',
+    '</div>',
+    '<div class="bleu-reference">',
+    '  <span class="bleu-ref-label">📖 Reference translation:</span>',
+    '  <span class="bleu-ref-ja">' + ref + '</span>',
+    '</div>',
+    '<div class="bleu-note">BLEU measures n-gram overlap with the reference. Score ≥ 60 is good for a dictionary-based system.</div>',
+  ].join('\n');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // Populate sections
@@ -1302,18 +1387,14 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => switchTab(btn.dataset.tab));
   });
 
-  // Translate on input (debounced)
+    // Update char count on input — translation only on button click / Ctrl+Enter
   document.getElementById('inputText').addEventListener('input', () => {
     updateCharCount();
-    document.getElementById('outputArea').innerHTML = `
-      <div class="output-placeholder">
-        <div class="placeholder-text">
-          Click Translate to see your Japanese translation
-        </div>
-      </div>`;
-
-  // Hide grammar and token details until translation is requested
-    document.getElementById('resultDetails').style.display = 'none'; 
+    const area = document.getElementById('outputArea');
+    if (area.querySelector('.trans-ja')) {
+      area.style.opacity = '0.4';
+      document.getElementById('resultDetails').style.display = 'none';
+    }
   });
 
   // Translate button
