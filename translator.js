@@ -1295,7 +1295,7 @@ document.addEventListener('DOMContentLoaded', () => {
   populateCategories();
   populateVocab();
   populateGrammar();
-  createFallingKana();
+  //createFallingKana();
 
   // Tab navigation
   document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -1305,8 +1305,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Translate on input (debounced)
   document.getElementById('inputText').addEventListener('input', () => {
     updateCharCount();
-    clearTimeout(translateTimeout);
-    translateTimeout = setTimeout(triggerTranslation, 600);
+    document.getElementById('outputArea').innerHTML = `
+      <div class="output-placeholder">
+        <div class="placeholder-text">
+          Click Translate to see your Japanese translation
+        </div>
+      </div>`;
+
+  // Hide grammar and token details until translation is requested
+    document.getElementById('resultDetails').style.display = 'none'; 
   });
 
   // Translate button
