@@ -1,56 +1,43 @@
 // NihongoTranslate Service Worker
-// Caches all app files for full offline support
+// Resolve assets relative to this service-worker scope for GitHub Pages
+// project sites such as /nihongo-translate/.
 
-const CACHE_NAME = 'nihongo-translate-v1';
-const ASSETS = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/translator.js',
-  '/manifest.json',
-  'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap'
-];
+const CACHE_NAME = 'nihongo-translate-v2';
+const APP_ASSETS = ['index.html', 'style.css', 'translator.js', 'manifest.json'];
+const ASSETS = APP_ASSETS.map(path => new URL(path, self.registration.scope).href);
 
-// Install: cache all assets
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      console.log('[SW] Caching app shell');
-      return cache.addAll(ASSETS.filter(url => !url.startsWith('http')));
-    }).then(() => self.skipWaiting())
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(ASSETS))
+      .then(() => self.skipWaiting())
   );
 });
 
-// Activate: clean up old caches
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+      Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))
     ).then(() => self.clients.claim())
   );
 });
 
-// Fetch: serve from cache, fallback to network
 self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached;
       return fetch(event.request).then(response => {
-        // Cache new successful GET requests
-        if (event.request.method === 'GET' && response.status === 200) {
+        if (response.ok) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
         }
         return response;
       }).catch(() => {
-        // Offline fallback
-        if (event.request.destination === 'document') {
-<<<<<<< HEAD
-          return caches.match('/index.html');
-=======
-          return caches.match('/index.html',self.registration.scope).href);
->>>>>>> a06f6a7bc5a1632fee42f332d563f890b4a74226
+        if (event.request.mode === 'navigate' || event.request.destination === 'document') {
+          return caches.match(new URL('index.html', self.registration.scope));
         }
+        return undefined;
       });
     })
   );
