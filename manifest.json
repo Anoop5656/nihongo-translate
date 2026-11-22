@@ -1,13 +1,10 @@
+
 {
   "name": "NihongoTranslate",
   "short_name": "にほんご",
   "description": "English to Japanese translator based on Minna no Nihongo",
-<<<<<<< HEAD
-  "start_url": "/index.html",
-=======
   "start_url": "./",
   "scope": "./",
->>>>>>> a06f6a7bc5a1632fee42f332d563f890b4a74226
   "display": "standalone",
   "background_color": "#0d0d1a",
   "theme_color": "#bc002d",
@@ -30,3 +27,4 @@
   "lang": "en",
   "dir": "ltr"
 }
+
