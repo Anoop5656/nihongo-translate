@@ -1401,7 +1401,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (existing) {
       area.style.opacity = '0.45';
     }
-    document.getElementById('bleuPanel').style.display = 'none';
+    document.getElementById('bleuPanelDetails').style.display = 'none';
     resetBleuEvaluation();
   });
 
