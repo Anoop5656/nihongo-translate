@@ -1,5 +1,6 @@
 
 {
+  "id": "./",
   "name": "NihongoTranslate",
   "short_name": "にほんご",
   "description": "English to Japanese translator based on Minna no Nihongo",
@@ -27,4 +28,3 @@
   "lang": "en",
   "dir": "ltr"
 }
-
